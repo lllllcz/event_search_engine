@@ -64,20 +64,26 @@ class SearchResults extends React.Component {
     })
     let username=localStorage.getItem("username");
     var time=new Date();
-    fetch("http://124.70.59.249:8080/search/"+value+"/"+username+"/"+time) .then(response	=>	response.json())
-        .then(data	=>	{
-
-       this.setState(
-
-           {
-             isShow:true,
-             results:data
-           }
-       )
-        }).catch(function	(ex)	{
-      console.log('parsing	failed',	ex)
+    fetch("http://124.70.59.249:8080/search/" + value + "/" + username + "/" + time).then(response => response.json())
+      .then(data => {
+        this.setState(
+          {
+            isShow: true,
+            results: data
+          }
+        )
+      }).catch(function (ex) {
+      console.log('parsing	failed', ex)
     })
   };
+
+  handleLogout = () => {
+    console.log("handle logout");
+    fetch("http://124.70.59.249:8080/logout", {credentials:'include'})
+      .then(response	=> response.json())
+      .then(data => {console.log(data)})
+      .catch(function	(ex) {console.log('parsing failed',	ex)})
+  }
 
 
   render() {
@@ -105,7 +111,7 @@ class SearchResults extends React.Component {
         <div className='search-bar'>
           <Space direction="vertical">
             <h1 className='search-bar-title'>事件搜索引擎</h1>
-            <Link to="/">退出登录</Link>
+            <Link to="/" onClick={this.handleLogout} >退出登录</Link>
             <Search
               placeholder="请输入事件名"
               allowClear

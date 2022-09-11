@@ -2,35 +2,37 @@ import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import '../css/login.css'
 import {Link} from "react-router-dom";
-import { createBrowserHistory, createHashHistory } from 'history';
+import { createBrowserHistory} from 'history';
+
 class LoginPage extends React.Component {
+
   constructor(props) {
     super(props);
   }
 
 
-
   onFinish = (values) => {
-    let username=values.username;
-    let password=values.password;
-    localStorage.setItem("username",username);
-    fetch("http://124.70.59.249:8080/login/"+username+"/"+password , {
+    let username = values.username;
+    let password = values.password;
+    localStorage.setItem("username", username);
+    fetch("http://124.70.59.249:8080/login/" + username + "/" + password, {
+      credentials: 'include',
     })
-        .then((response) => response.json())
-        .then((data) => {
-          if(data=="success"){
-            const history = createBrowserHistory();
-            history.push(
-                {
-                  pathname:"/MainPage",
-                }  );
-            history.go();
-            return;
-          }
-          if(data=="failed"){
-            alert("用户名或密码错误！")
-          }
-        })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === "success") {
+          const history = createBrowserHistory();
+          history.push(
+            {
+              pathname: "/MainPage",
+            });
+          history.go();
+          return;
+        }
+        if (data === "failed") {
+          alert("用户名或密码错误！")
+        }
+      })
     console.log('Success:', values);
   };
 
@@ -57,7 +59,7 @@ class LoginPage extends React.Component {
               name="username"
               rules={[{required: true, message: 'Please input your username!',},]}
             >
-              <Input   />
+              <Input/>
             </Form.Item>
 
             <Form.Item
@@ -65,7 +67,7 @@ class LoginPage extends React.Component {
               name="password"
               rules={[{required: true, message: 'Please input your password!',},]}
             >
-              <Input.Password    />
+              <Input.Password/>
             </Form.Item>
 
             <Form.Item
@@ -85,7 +87,7 @@ class LoginPage extends React.Component {
             </Form.Item>
 
             <Form.Item
-                wrapperCol={{offset: 8, span: 16,}}
+              wrapperCol={{offset: 8, span: 16,}}
             >
               <Link to={"/RegisterView"}>
                 <button type="primary">Register</button>

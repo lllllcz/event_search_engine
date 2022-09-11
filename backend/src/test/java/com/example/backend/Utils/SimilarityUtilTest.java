@@ -1,4 +1,4 @@
-package com.example.logindemo.Utils;
+package com.example.backend.Utils;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
